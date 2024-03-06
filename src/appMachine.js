@@ -1,16 +1,16 @@
 import { createMachine,fromPromise } from 'xstate';
-  export const appMachine = createMachine({
+
+export const appMachine = createMachine({
   "id": "Untitled",
   "initial": "First State",
+  context: {
+    "name": "John"
+  },
   "states": {
     "First State": {
       invoke: {
         id: "invoke",
-        src: fromPromise((context,event) => {
-          return new Promise((resolve,reject) => {
-            setTimeout(resolve, 5000);
-          });
-        }),
+        src: "invoke",
         onDone: {
           target: "Second State",
         },
@@ -42,7 +42,11 @@ import { createMachine,fromPromise } from 'xstate';
 }, {
   actions:   {},
   actors:   {
-    
+   invoke: fromPromise(() => {
+      return new Promise((resolve,reject) => {
+        setTimeout(resolve, 5000);
+      });
+    }),
   },
   guards:   {},
   delays:   {},
