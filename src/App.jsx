@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import './App.css'
 import * as React from 'react';
-import {AppActor} from './appMachine'
+// import {AppActor} from './appMachine'
+import {createActor} from 'xstate'
+import {appMachine} from './appMachine' 
+
+export const AppActor = createActor(appMachine);
+
+AppActor.start()
 
 
 function App() {
